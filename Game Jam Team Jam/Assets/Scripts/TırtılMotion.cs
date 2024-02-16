@@ -27,7 +27,6 @@ public class TırtılMotion : MonoBehaviour
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower * Mathf.Sign(playerRigidBody.gravityScale));
         }
-
         if (Input.GetKeyUp("c") && Mathf.Abs(playerRigidBody.velocity.y) > 0)
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, playerRigidBody.velocity.y * 0.5f);
