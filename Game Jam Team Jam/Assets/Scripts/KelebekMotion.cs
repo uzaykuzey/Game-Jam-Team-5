@@ -26,9 +26,9 @@ public class KelebekMotion : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown("c"))
+        if (Input.GetKey("c"))
         {
-            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower * Mathf.Sign(playerRigidBody.gravityScale));
+            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);
         }
     }
 
