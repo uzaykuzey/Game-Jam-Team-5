@@ -37,4 +37,9 @@ public class HealtControl : MonoBehaviour
             }
         }
     }
+
+    public void increaseHealth(int amount)
+    {
+        health += amount;
+    }
 }
