@@ -59,7 +59,7 @@ public class TirtilMotion : MonoBehaviour
     {
         if(isImmune>0)
         {
-            if(Mathf.Floor(Time.time*3)%4==1)
+            if(Mathf.Floor(Time.time*10)%3==1)
             {
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
             }
