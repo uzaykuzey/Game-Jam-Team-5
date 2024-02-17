@@ -13,14 +13,6 @@ public class GunMechanic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerShoot()
-    }
-
-    void PlayerShoot()
-    {
-        if(Input.GetKeyDown(Keycode.Space))
-        {
-
-        }
+        
     }
 }
