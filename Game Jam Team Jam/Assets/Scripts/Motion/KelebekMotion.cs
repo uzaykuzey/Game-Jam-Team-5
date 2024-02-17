@@ -9,7 +9,7 @@ public class KelebekMotion : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private Rigidbody2D playerRigidBody;
-    [SerializeField] private CircleCollider2D boxCollider;
+    [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private Camera mainCamera;
     // Start is called before the first frame update
     void Start()
