@@ -73,6 +73,7 @@ public class TirtilMotion : MonoBehaviour
             if(Input.GetKeyDown("x"))
             {
                 spriteRenderer.sprite = sprites[3];
+                attackCooldown = 100;
             }
             else if(horizontal==0)
             {
