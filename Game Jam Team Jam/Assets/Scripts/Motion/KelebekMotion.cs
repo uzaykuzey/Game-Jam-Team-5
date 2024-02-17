@@ -41,6 +41,7 @@ public class KelebekMotion : MonoBehaviour
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);
         }
+        Flip();
     }
 
     private void Flip()
