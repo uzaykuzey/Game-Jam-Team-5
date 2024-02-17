@@ -134,10 +134,9 @@ public class TirtilMotion : MonoBehaviour
         attackCooldown = attackCooldown <= 0 ? 0 : attackCooldown - 1;
         if (!cantMove)
         {
-            if((touchingRightWall && horizontal==-1)||(touchingLeftWall && horizontal == 1)||(!touchingLeftWall&& !touchingRightWall))
-            {
-                playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
-            }
+
+            playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
+            
         }
     }
 
@@ -172,15 +171,4 @@ public class TirtilMotion : MonoBehaviour
         cantMove = true;
         playerRigidBody.velocity = new Vector2(-horizontal * 6, 6);
     }
-
-    public void touchRightWall(bool boolean)
-    {
-        touchingRightWall=boolean;
-    }
-
-    public void touchLeftWall(bool boolean)
-    {
-        touchingLeftWall=boolean;
-    }
-
 }

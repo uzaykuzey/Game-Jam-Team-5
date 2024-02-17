@@ -24,18 +24,28 @@ public class MovingBlock : MonoBehaviour
     {
         if(countdown==0&&xaxis)
         {
-            if (transform.position.x>=firstPosition.x+range || transform.position.x<=firstPosition.x)
+            if(transform.position.x >= firstPosition.x + range)
             {
-                lookingPositive *= -1;
                 countdown = 20;
+                lookingPositive = -1;
+            }
+            if(transform.position.x <= firstPosition.x)
+            {
+                countdown = 20;
+                lookingPositive = 1;
             }
         }
         else
         {
-            if (transform.position.y >= firstPosition.y + range || transform.position.y <= firstPosition.y)
+            if (transform.position.y >= firstPosition.y + range)
             {
-                lookingPositive *= -1;
-                countdown = 25;
+                countdown = 20;
+                lookingPositive = -1;
+            }
+            if (transform.position.y <= firstPosition.y)
+            {
+                countdown = 20;
+                lookingPositive = 1;
             }
         }
 
