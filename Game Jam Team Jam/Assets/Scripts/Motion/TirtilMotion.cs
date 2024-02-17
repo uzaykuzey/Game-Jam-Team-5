@@ -18,6 +18,7 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private CircleCollider2D boxCollider;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private HealtControl healtControl;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -52,6 +53,7 @@ public class TirtilMotion : MonoBehaviour
                 playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower * Mathf.Sign(playerRigidBody.gravityScale));
             }
         }
+        if(Physics2D.IsTouchingLayers(boxCollider, wallLayer))
         Flip();
     }
 
