@@ -31,6 +31,18 @@ public class TirtilMotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey(KeyCode.RightArrow))
+        {
+            horizontal = 1;
+        }
+        else if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            horizontal = -1;
+        }
+        else
+        {
+            horizontal = 0;
+        }
         horizontal = Input.GetAxisRaw("Horizontal");
         if(Physics2D.IsTouchingLayers(boxCollider, groundLayer))
         {
@@ -96,7 +108,7 @@ public class TirtilMotion : MonoBehaviour
         healtControl.IncreaseHealth(-amount);
         isImmune = maxImmunityTime;
         cantMove = true;
-        playerRigidBody.velocity = new Vector2(horizontal * 4, 4);
+        playerRigidBody.velocity = new Vector2(-horizontal * 4, 4);
     }
 
 }
