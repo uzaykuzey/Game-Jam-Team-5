@@ -734,13 +734,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   damage: 1
-  layer:
+  enemyRigidBody: {fileID: 1331782402}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  tirtil: {fileID: 1446827479}
+  antControlLayer:
     serializedVersion: 2
     m_Bits: 64
   facingRight: 0
   circleCollider: {fileID: 1331782403}
   speed: 2
-  antRigidBody: {fileID: 1331782402}
 --- !u!212 &1331782405
 SpriteRenderer:
   m_ObjectHideFlags: 0

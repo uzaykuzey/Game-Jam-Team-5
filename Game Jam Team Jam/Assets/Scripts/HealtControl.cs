@@ -7,6 +7,7 @@ public class HealtControl : MonoBehaviour
     [SerializeField] int health;
     [SerializeField] Sprite[] sprites;
     [SerializeField] SpriteRenderer[] spriteRenderersOfHealths;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +39,7 @@ public class HealtControl : MonoBehaviour
         }
     }
 
-    public void increaseHealth(int amount)
+    public void IncreaseHealth(int amount)
     {
         health += amount;
     }

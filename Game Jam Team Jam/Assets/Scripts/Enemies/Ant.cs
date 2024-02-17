@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Ant : IEnemy
 {
-    [SerializeField] private LayerMask layer;
+    [SerializeField] private LayerMask antControlLayer;
     [SerializeField] private bool facingRight;
     [SerializeField] private CircleCollider2D circleCollider;
     [SerializeField] private float speed;
-    [SerializeField] private Rigidbody2D antRigidBody;
-
     int countdown;
 
     // Start is called before the first frame update
@@ -22,18 +20,18 @@ public class Ant : IEnemy
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (countdown<=0&&Physics2D.IsTouchingLayers(circleCollider, layer))
+        if (countdown<=0&&Physics2D.IsTouchingLayers(circleCollider, antControlLayer))
         {
             facingRight = !facingRight;
             countdown = 5;
         }
         if(facingRight)
         {
-            antRigidBody.velocity = new Vector2(speed, 0);
+            enemyRigidBody.velocity = new Vector2(speed, 0);
         }
         else
         {
-            antRigidBody.velocity = new Vector2(-speed, 0);
+            enemyRigidBody.velocity = new Vector2(-speed, 0);
         }
         countdown= countdown<=0 ? 0: countdown-1;
     }
