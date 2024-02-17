@@ -25,6 +25,8 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private HealtControl healtControl;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite[] sprites;
+    [SerializeField] private ParticleSystem particleSystemAttacc;
+    [SerializeField] private Transform particleSystemTransform;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,29 +70,28 @@ public class TirtilMotion : MonoBehaviour
             wallJumpCooldown = 100;
             playerRigidBody.velocity = new Vector2(-Mathf.Sign(playerRigidBody.velocity.x) * speed, jumpPower * 0.35f);
         }
-        if(attackCooldown==0)
+
+        if(attackCooldown == 0&&Input.GetKeyDown("x"))
         {
-            if(Input.GetKeyDown("x"))
+            particleSystemAttacc.Play();
+            attackCooldown = 100;
+        }
+        else if(horizontal==0)
+        {
+            spriteRenderer.sprite = sprites[0];
+        }
+        else
+        {
+            if(Mathf.Floor(Time.time * 2) % 2 == 1)
             {
-                spriteRenderer.sprite = sprites[3];
-                attackCooldown = 100;
-            }
-            else if(horizontal==0)
-            {
-                spriteRenderer.sprite = sprites[0];
+                spriteRenderer.sprite = sprites[1];
             }
             else
             {
-                if(Mathf.Floor(Time.time * 2) % 2 == 1)
-                {
-                    spriteRenderer.sprite = sprites[1];
-                }
-                else
-                {
-                    spriteRenderer.sprite = sprites[2];
-                }
+                spriteRenderer.sprite = sprites[2];
             }
         }
+        particleSystemTransform.position= new Vector3(playerRigidBody.position.x+0.55f, playerRigidBody.position.y + -0.87f,0.7f);
 
         Flip();
     }
