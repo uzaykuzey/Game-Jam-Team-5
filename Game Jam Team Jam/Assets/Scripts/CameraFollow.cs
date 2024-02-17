@@ -10,9 +10,9 @@ public class CameraFollow : MonoBehaviour
     private void Update()
     {
         float distanceToCamera = 2f;
-        Vector3 offset1 = new Vector3(-7.95119f, 4.396813f, distanceToCamera);
-        Vector3 offset2 = new Vector3(-6.750601f, 4.376113f, distanceToCamera);
-        Vector3 offset3 = new Vector3(-5.529312f, 4.376113f, distanceToCamera);
+        Vector3 offset1 = new Vector3(-7.45119f, 4.396813f, distanceToCamera);
+        Vector3 offset2 = new Vector3(-6.250601f, 4.376113f, distanceToCamera);
+        Vector3 offset3 = new Vector3(-5.029312f, 4.376113f, distanceToCamera);
 
         healthBars[0].position = cameraTransform.position + offset1;
         healthBars[1].position = cameraTransform.position + offset2;

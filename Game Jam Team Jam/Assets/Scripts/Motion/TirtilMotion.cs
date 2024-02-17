@@ -11,18 +11,20 @@ public class TirtilMotion : MonoBehaviour
     private readonly int maxImmunityTime = 150;
     private bool cantMove;
     private int wallJumpCooldown;
+    private int attackCooldown;
 
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private Rigidbody2D playerRigidBody;
-    [SerializeField] private CircleCollider2D boxCollider;
+    [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private HealtControl healtControl;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite[] sprites; //0: idle, 1: walk1, 2: walk2, 3: attacc
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +70,29 @@ public class TirtilMotion : MonoBehaviour
         }
         
         Flip();
+        if(Input.GetKeyDown("x"))
+        {
+            spriteRenderer.sprite = sprites[3];
+            attackCooldown = 50;
+        }
+        else if(attackCooldown==0)
+        {
+            if (horizontal == 0)
+            {
+                spriteRenderer.sprite = sprites[0];
+            }
+            else
+            {
+                if (Mathf.Floor(Time.time * 2) % 2 == 1)
+                {
+                    spriteRenderer.sprite = sprites[1];
+                }
+                else
+                {
+                    spriteRenderer.sprite = sprites[2];
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -90,10 +115,12 @@ public class TirtilMotion : MonoBehaviour
         }
         isImmune = isImmune <= 0 ? 0 : isImmune - 1;
         wallJumpCooldown = wallJumpCooldown <= 0 ? 0 : wallJumpCooldown - 1;
+        attackCooldown = attackCooldown <= 0 ? 0 : attackCooldown - 1;
         if ((!Physics2D.IsTouchingLayers(boxCollider, wallLayer)) &&!cantMove && wallJumpCooldown==0)
         {
             playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
         }
+
     }
 
     private void Flip()
