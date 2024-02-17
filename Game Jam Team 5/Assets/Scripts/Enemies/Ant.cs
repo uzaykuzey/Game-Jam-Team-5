@@ -6,7 +6,6 @@ public class Ant : IEnemy
 {
     [SerializeField] private LayerMask antControlLayer;
     [SerializeField] private bool facingRight;
-    [SerializeField] private CircleCollider2D circleCollider;
     [SerializeField] private float speed;
     int countdown;
 
@@ -20,9 +19,10 @@ public class Ant : IEnemy
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (countdown<=0&&Physics2D.IsTouchingLayers(circleCollider, antControlLayer))
+        if (countdown<=0&&Physics2D.IsTouchingLayers(enemyCollider, antControlLayer))
         {
             facingRight = !facingRight;
+            transform.Rotate(new Vector3(0, 180,0 ));
             countdown = 5;
         }
         if(facingRight)
