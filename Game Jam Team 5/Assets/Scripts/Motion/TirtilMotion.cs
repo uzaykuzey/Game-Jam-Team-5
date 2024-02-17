@@ -10,11 +10,8 @@ public class TirtilMotion : MonoBehaviour
     private int isImmune; //0=not immune
     private readonly int maxImmunityTime = 150;
     private bool cantMove;
-<<<<<<< HEAD
     private int wallJumpCooldown;
     private int attackCooldown;
-=======
->>>>>>> parent of a24296a (Merge branch 'main' of https://github.com/uzaykuzey/Game-Jam-Team-5)
 
 
     [SerializeField] private float speed;
@@ -23,47 +20,67 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private HealtControl healtControl;
-<<<<<<< HEAD
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite[] sprites; //0: idle, 1: walk1, 2: walk2, 3: attacc
-=======
->>>>>>> parent of a24296a (Merge branch 'main' of https://github.com/uzaykuzey/Game-Jam-Team-5)
+    [SerializeField] private Sprite[] sprites;
     // Start is called before the first frame update
     void Start()
     {
         isImmune = 0;
         cantMove = false;
+        wallJumpCooldown = 0;
+        horizontal = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        if(Physics2D.IsTouchingLayers(boxCollider, groundLayer))
+        if (wallJumpCooldown <= 80)
         {
-            cantMove = false;
-            if (Input.GetKeyDown("c"))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
-                playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower * Mathf.Sign(playerRigidBody.gravityScale));
+                horizontal = 1;
+                wallJumpCooldown = 0;
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                horizontal = -1;
+                wallJumpCooldown = 0;
+            }
+            else
+            {
+                horizontal = 0;
             }
         }
-        Flip();
-        if(Input.GetKeyDown("x"))
+        if (Physics2D.IsTouchingLayers(boxCollider, groundLayer))
         {
-            spriteRenderer.sprite = sprites[3];
-            attackCooldown = 50;
+            cantMove = false;
+            wallJumpCooldown = 0;
+            if (Input.GetKeyDown("c"))
+            {
+                playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);
+            }
         }
-        else if(attackCooldown==0)
+        if (wallJumpCooldown < 80 && Physics2D.IsTouchingLayers(boxCollider, wallLayer))
         {
-            if (horizontal == 0)
+            wallJumpCooldown = 100;
+            playerRigidBody.velocity = new Vector2(-Mathf.Sign(playerRigidBody.velocity.x) * speed, jumpPower * 0.35f);
+        }
+        if(attackCooldown==0)
+        {
+            if(Input.GetKeyDown("x"))
+            {
+                spriteRenderer.sprite = sprites[3];
+            }
+            else if(horizontal==0)
             {
                 spriteRenderer.sprite = sprites[0];
             }
             else
             {
-                if (Mathf.Floor(Time.time * 2) % 2 == 1)
+                if(Mathf.Floor(Time.time * 2) % 2 == 1)
                 {
                     spriteRenderer.sprite = sprites[1];
                 }
@@ -73,22 +90,35 @@ public class TirtilMotion : MonoBehaviour
                 }
             }
         }
+
+        Flip();
     }
 
     private void FixedUpdate()
     {
+        if (isImmune > 0)
+        {
+            if (Mathf.Floor(Time.time * 10) % 3 == 1)
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+            }
+            else
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+            }
+        }
+        else
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+            cantMove = false;
+        }
         isImmune = isImmune <= 0 ? 0 : isImmune - 1;
-<<<<<<< HEAD
         wallJumpCooldown = wallJumpCooldown <= 0 ? 0 : wallJumpCooldown - 1;
         attackCooldown = attackCooldown <= 0 ? 0 : attackCooldown - 1;
-        if ((!Physics2D.IsTouchingLayers(boxCollider, wallLayer)) &&!cantMove && wallJumpCooldown==0)
-=======
-        if(!cantMove)
->>>>>>> parent of a24296a (Merge branch 'main' of https://github.com/uzaykuzey/Game-Jam-Team-5)
+        if ((!Physics2D.IsTouchingLayers(boxCollider, wallLayer)) && !cantMove && wallJumpCooldown == 0)
         {
             playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
         }
-
     }
 
     private void Flip()
@@ -113,13 +143,14 @@ public class TirtilMotion : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if(isImmune!=0)
-        { 
-            return; 
+        if (isImmune != 0)
+        {
+            return;
         }
         healtControl.IncreaseHealth(-amount);
         isImmune = maxImmunityTime;
         cantMove = true;
+        playerRigidBody.velocity = new Vector2(-horizontal * 6, 6);
     }
 
 }
