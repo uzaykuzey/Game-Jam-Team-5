@@ -734,11 +734,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   damage: 1
-  enemyRigidBody: {fileID: 1331782402}
+  enemyCollider: {fileID: 1331782403}
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
   tirtil: {fileID: 1446827479}
+  enemyRigidBody: {fileID: 1331782402}
   antControlLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -826,7 +827,7 @@ GameObject:
   - component: {fileID: 1446827475}
   - component: {fileID: 1446827479}
   - component: {fileID: 1446827480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -986,6 +987,7 @@ MonoBehaviour:
     m_Bits: 128
   mainCamera: {fileID: 519420031}
   healtControl: {fileID: 519420033}
+  spriteRenderer: {fileID: 1446827477}
 --- !u!114 &1446827480
 MonoBehaviour:
   m_ObjectHideFlags: 0
