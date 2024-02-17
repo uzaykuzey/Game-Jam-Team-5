@@ -19,7 +19,8 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private Rigidbody2D playerRigidBody;
-    [SerializeField] private BoxCollider2D playerBoxCollider;
+    [SerializeField] private BoxCollider2D horizontalPlayerBoxCollider;
+    [SerializeField] private BoxCollider2D idlePlayerBoxCollider;
     [SerializeField] private BoxCollider2D groundBoxCollider;
     [SerializeField] private BoxCollider2D rightCollider;
     [SerializeField] private Transform rightColliderTransform;
@@ -85,20 +86,17 @@ public class TirtilMotion : MonoBehaviour
             particleSystemAttacc.Play();
             attackCooldown = 100;
         }
-        if(!Physics2D.IsTouchingLayers(groundBoxCollider, groundLayer) && Physics2D.IsTouchingLayers(rightCollider, wallLayer))
-        {
-            spriteRenderer.sprite = sprites[3];
-        }
-        else if(!Physics2D.IsTouchingLayers(groundBoxCollider, groundLayer) && Physics2D.IsTouchingLayers(leftCollider, wallLayer))
-        {
-            spriteRenderer.sprite = sprites[4];
-        }
-        else if (horizontal == 0)
+
+        if (horizontal == 0)
         {
             spriteRenderer.sprite = sprites[0];
+            horizontalPlayerBoxCollider.enabled = false;
+            idlePlayerBoxCollider.enabled = true;
         }
         else
         {
+            horizontalPlayerBoxCollider.enabled = true;
+            idlePlayerBoxCollider.enabled = false;
             if (Mathf.Floor(Time.time * 2) % 2 == 1)
             {
                 spriteRenderer.sprite = sprites[1];
@@ -107,8 +105,8 @@ public class TirtilMotion : MonoBehaviour
             {
                 spriteRenderer.sprite = sprites[2];
             }
-            Flip();
         }
+        Flip();
         rightColliderTransform.position = new Vector3(playerRigidBody.position.x + 1.196f, playerRigidBody.position.y - 0.93f, -0.2f);
         leftColliderTransform.position = new Vector3(playerRigidBody.position.x - 1.837f, playerRigidBody.position.y - 0.93f, -0.2f);
     }

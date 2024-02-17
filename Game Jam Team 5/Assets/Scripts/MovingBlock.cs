@@ -4,23 +4,41 @@ using UnityEngine;
 
 public class MovingBlock : MonoBehaviour
 {
-    [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] Rigidbody2D rigidBody;
-    [SerializeField] LayerMask boxController;
     [SerializeField] bool xaxis;
     [SerializeField] int speed;
+    [SerializeField] float range;
     int countdown;
     int lookingPositive;
+    Vector2 firstPosition;
+
+    private void Start()
+    {
+        firstPosition= transform.position;
+        lookingPositive = 1;
+        countdown= 0;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        lookingPositive = 1;
-        if(countdown==0&&Physics2D.IsTouchingLayers(boxCollider, boxController))
+        if(countdown==0&&xaxis)
         {
-            lookingPositive *= -1;
-            countdown = 10;
+            if (transform.position.x>=firstPosition.x+range || transform.position.x<=firstPosition.x)
+            {
+                lookingPositive *= -1;
+                countdown = 20;
+            }
         }
+        else
+        {
+            if (transform.position.y >= firstPosition.y + range || transform.position.y <= firstPosition.y)
+            {
+                lookingPositive *= -1;
+                countdown = 25;
+            }
+        }
+
 
     }
 
@@ -34,6 +52,6 @@ public class MovingBlock : MonoBehaviour
         {
             rigidBody.velocity = new Vector2(0, speed * lookingPositive);
         }
-        countdown = countdown<=0? 0: countdown-1;
+        countdown = countdown<=0 ? 0: countdown-1;
     }
 }
