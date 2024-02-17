@@ -20,6 +20,7 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private HealtControl healtControl;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,21 @@ public class TirtilMotion : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(isImmune>0)
+        {
+            if(Mathf.Floor(Time.time*3)%4==1)
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+            }
+            else
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+            }
+        }
+        else
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+        }
         isImmune = isImmune <= 0 ? 0 : isImmune - 1;
         if(!cantMove)
         {
@@ -80,6 +96,7 @@ public class TirtilMotion : MonoBehaviour
         healtControl.IncreaseHealth(-amount);
         isImmune = maxImmunityTime;
         cantMove = true;
+        playerRigidBody.velocity = new Vector2(horizontal * 4, 4);
     }
 
 }
