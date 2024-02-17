@@ -11,20 +11,18 @@ public class TirtilMotion : MonoBehaviour
     private readonly int maxImmunityTime = 150;
     private bool cantMove;
     private int wallJumpCooldown;
-    private int attackCooldown;
 
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private Rigidbody2D playerRigidBody;
-    [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private CircleCollider2D boxCollider;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private HealtControl healtControl;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite[] sprites;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +35,7 @@ public class TirtilMotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (wallJumpCooldown <= 80)
+        if(wallJumpCooldown<=80)
         {
             if (Input.GetKey(KeyCode.RightArrow))
             {
@@ -54,7 +52,7 @@ public class TirtilMotion : MonoBehaviour
                 horizontal = 0;
             }
         }
-        if (Physics2D.IsTouchingLayers(boxCollider, groundLayer))
+        if(Physics2D.IsTouchingLayers(boxCollider, groundLayer))
         {
             cantMove = false;
             wallJumpCooldown = 0;
@@ -63,42 +61,20 @@ public class TirtilMotion : MonoBehaviour
                 playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);
             }
         }
-        if (wallJumpCooldown < 80 && Physics2D.IsTouchingLayers(boxCollider, wallLayer))
+        if(wallJumpCooldown<80&&Physics2D.IsTouchingLayers(boxCollider, wallLayer))
         {
             wallJumpCooldown = 100;
-            playerRigidBody.velocity = new Vector2(-Mathf.Sign(playerRigidBody.velocity.x) * speed, jumpPower * 0.35f);
+            playerRigidBody.velocity = new Vector2(-Mathf.Sign(playerRigidBody.velocity.x)*speed, jumpPower*0.35f);
         }
-        if(attackCooldown==0)
-        {
-            if(Input.GetKeyDown("x"))
-            {
-                spriteRenderer.sprite = sprites[3];
-            }
-            else if(horizontal==0)
-            {
-                spriteRenderer.sprite = sprites[0];
-            }
-            else
-            {
-                if(Mathf.Floor(Time.time * 2) % 2 == 1)
-                {
-                    spriteRenderer.sprite = sprites[1];
-                }
-                else
-                {
-                    spriteRenderer.sprite = sprites[2];
-                }
-            }
-        }
-
+        
         Flip();
     }
 
     private void FixedUpdate()
     {
-        if (isImmune > 0)
+        if(isImmune>0)
         {
-            if (Mathf.Floor(Time.time * 10) % 3 == 1)
+            if(Mathf.Floor(Time.time*10)%3==1)
             {
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
             }
@@ -114,8 +90,7 @@ public class TirtilMotion : MonoBehaviour
         }
         isImmune = isImmune <= 0 ? 0 : isImmune - 1;
         wallJumpCooldown = wallJumpCooldown <= 0 ? 0 : wallJumpCooldown - 1;
-        attackCooldown = attackCooldown <= 0 ? 0 : attackCooldown - 1;
-        if ((!Physics2D.IsTouchingLayers(boxCollider, wallLayer)) && !cantMove && wallJumpCooldown == 0)
+        if ((!Physics2D.IsTouchingLayers(boxCollider, wallLayer)) &&!cantMove && wallJumpCooldown==0)
         {
             playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
         }
@@ -143,14 +118,14 @@ public class TirtilMotion : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (isImmune != 0)
-        {
-            return;
+        if(isImmune!=0)
+        { 
+            return; 
         }
         healtControl.IncreaseHealth(-amount);
         isImmune = maxImmunityTime;
         cantMove = true;
-        playerRigidBody.velocity = new Vector2(-horizontal * 6, 6);
+        playerRigidBody.velocity = new Vector2(-horizontal * 4, 4);
     }
 
 }
