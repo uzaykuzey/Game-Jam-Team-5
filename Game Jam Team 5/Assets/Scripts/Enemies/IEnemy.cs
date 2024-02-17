@@ -10,6 +10,8 @@ public class IEnemy : MonoBehaviour
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected TirtilMotion tirtil;
     [SerializeField] protected Rigidbody2D enemyRigidBody;
+    [SerializeField] protected LayerMask weaponLayer;
+    int immunityCountdown;
 
     void Update()
     {
@@ -17,5 +19,24 @@ public class IEnemy : MonoBehaviour
         {
             tirtil.TakeDamage(damage);
         }
+        if(immunityCountdown==0&&Physics2D.IsTouchingLayers(enemyCollider, weaponLayer))
+        {
+            health--;
+            immunityCountdown = 10;
+        }
+        if(health<=0)
+        {
+            Die();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        immunityCountdown=immunityCountdown==0? 0 : immunityCountdown-1;
+    }
+
+    public void Die()
+    {
+        transform.position = new Vector2(1000,0);
     }
 }

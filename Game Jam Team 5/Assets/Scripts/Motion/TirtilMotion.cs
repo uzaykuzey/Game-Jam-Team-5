@@ -31,6 +31,7 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private HealtControl healtControl;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite[] sprites;
+    [SerializeField] private Transform swingTransform;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,11 +84,13 @@ public class TirtilMotion : MonoBehaviour
             spriteRenderer.sprite = sprites[0];
             horizontalPlayerBoxCollider.enabled = false;
             idlePlayerBoxCollider.enabled = true;
+            swingTransform.position = new Vector3(swingTransform.position.x, playerRigidBody.position.y - 0.46f , -0.2f);
         }
         else
         {
             horizontalPlayerBoxCollider.enabled = true;
             idlePlayerBoxCollider.enabled = false;
+            swingTransform.position = new Vector3(swingTransform.position.x, playerRigidBody.position.y - 1.03f, -0.2f);
             if (Mathf.Floor(Time.time * 2) % 2 == 1)
             {
                 spriteRenderer.sprite = sprites[1];
