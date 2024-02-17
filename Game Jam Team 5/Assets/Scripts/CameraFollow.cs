@@ -7,6 +7,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] public Transform[] healthBars;
     [SerializeField] public Transform cameraTransform;
     [SerializeField] public Camera cameraMain;
+    [SerializeField] public Transform player;
     private void Update()
     {
         float distanceToCamera = 2f;
@@ -17,5 +18,11 @@ public class CameraFollow : MonoBehaviour
         healthBars[0].position = cameraTransform.position + offset1;
         healthBars[1].position = cameraTransform.position + offset2;
         healthBars[2].position = cameraTransform.position + offset3;
+
+        if (player.position.y > 0)
+        {
+            transform.position = new Vector3(transform.position.x, player.position.y , transform.position.z);
+        }
     }
+
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TirtilMotion : MonoBehaviour
@@ -12,6 +13,8 @@ public class TirtilMotion : MonoBehaviour
     private int wallJumpCooldown;
     private int attackCooldown;
     private float prevHorizontal;
+    private bool touchingRightWall;
+    private bool touchingLeftWall;
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
@@ -19,7 +22,9 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private BoxCollider2D playerBoxCollider;
     [SerializeField] private BoxCollider2D groundBoxCollider;
     [SerializeField] private BoxCollider2D rightCollider;
+    [SerializeField] private Transform rightColliderTransform;
     [SerializeField] private BoxCollider2D leftCollider;
+    [SerializeField] private Transform leftColliderTransform;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private LayerMask wallLayer;
@@ -80,9 +85,13 @@ public class TirtilMotion : MonoBehaviour
             particleSystemAttacc.Play();
             attackCooldown = 100;
         }
-        if(!Physics2D.IsTouchingLayers(groundBoxCollider, groundLayer)&&Physics2D.IsTouchingLayers(rightCollider, groundLayer))
+        if(!Physics2D.IsTouchingLayers(groundBoxCollider, groundLayer) && Physics2D.IsTouchingLayers(rightCollider, wallLayer))
         {
             spriteRenderer.sprite = sprites[3];
+        }
+        else if(!Physics2D.IsTouchingLayers(groundBoxCollider, groundLayer) && Physics2D.IsTouchingLayers(leftCollider, wallLayer))
+        {
+            spriteRenderer.sprite = sprites[4];
         }
         else if (horizontal == 0)
         {
@@ -100,6 +109,8 @@ public class TirtilMotion : MonoBehaviour
             }
             Flip();
         }
+        rightColliderTransform.position = new Vector3(playerRigidBody.position.x + 1.196f, playerRigidBody.position.y - 0.93f, -0.2f);
+        leftColliderTransform.position = new Vector3(playerRigidBody.position.x - 1.837f, playerRigidBody.position.y - 0.93f, -0.2f);
     }
 
     private void FixedUpdate()
@@ -125,7 +136,10 @@ public class TirtilMotion : MonoBehaviour
         attackCooldown = attackCooldown <= 0 ? 0 : attackCooldown - 1;
         if (!cantMove)
         {
-            playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
+            if((touchingRightWall && horizontal==-1)||(touchingLeftWall && horizontal == 1)||(!touchingLeftWall&& !touchingRightWall))
+            {
+                playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
+            }
         }
     }
 
@@ -159,6 +173,16 @@ public class TirtilMotion : MonoBehaviour
         isImmune = maxImmunityTime;
         cantMove = true;
         playerRigidBody.velocity = new Vector2(-horizontal * 6, 6);
+    }
+
+    public void touchRightWall(bool boolean)
+    {
+        touchingRightWall=boolean;
+    }
+
+    public void touchLeftWall(bool boolean)
+    {
+        touchingLeftWall=boolean;
     }
 
 }
