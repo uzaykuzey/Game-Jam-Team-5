@@ -13,8 +13,6 @@ public class TirtilMotion : MonoBehaviour
     private int wallJumpCooldown;
     private int attackCooldown;
     private float prevHorizontal;
-    private bool touchingRightWall;
-    private bool touchingLeftWall;
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
@@ -33,8 +31,6 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private HealtControl healtControl;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite[] sprites;
-    [SerializeField] private ParticleSystem particleSystemAttacc;
-    [SerializeField] private Transform particleSystemTransform;
     // Start is called before the first frame update
     void Start()
     {
@@ -81,11 +77,6 @@ public class TirtilMotion : MonoBehaviour
             playerRigidBody.velocity = new Vector2(-Mathf.Sign(playerRigidBody.velocity.x) * speed, jumpPower * 0.35f);
         }*/
 
-        if (attackCooldown == 0 && Input.GetKeyDown("x"))
-        {
-            particleSystemAttacc.Play();
-            attackCooldown = 100;
-        }
 
         if (horizontal == 0)
         {
@@ -142,21 +133,15 @@ public class TirtilMotion : MonoBehaviour
 
     private void Flip()
     {
-        if (playerRigidBody.gravityScale < 0 && playerRigidBody.rotation < 1)
+        if (Input.GetKey(KeyCode.LeftArrow) && isFacingRight)
         {
-            playerRigidBody.rotation = 180;
+            transform.Rotate(0f, 180f, 0f);
+            isFacingRight = false;
         }
-        else if (playerRigidBody.gravityScale > 0 && playerRigidBody.rotation > 170)
+        if (Input.GetKey(KeyCode.RightArrow) && !isFacingRight)
         {
-            playerRigidBody.rotation = 0;
-        }
-
-        if ((isFacingRight && horizontal < 0f && playerRigidBody.gravityScale > 0) || (!isFacingRight && horizontal > 0f && playerRigidBody.gravityScale > 0) || (isFacingRight && horizontal > 0f && playerRigidBody.gravityScale < 0) || (!isFacingRight && horizontal < 0f && playerRigidBody.gravityScale < 0))
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
+            transform.Rotate(0f, 180f, 0f);
+            isFacingRight = true;
         }
     }
 
