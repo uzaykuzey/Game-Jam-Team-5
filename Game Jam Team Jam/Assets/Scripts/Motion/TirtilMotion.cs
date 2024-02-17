@@ -10,6 +10,7 @@ public class TirtilMotion : MonoBehaviour
     private int isImmune; //0=not immune
     private readonly int maxImmunityTime = 150;
     private bool cantMove;
+    private int wallJumpCooldown;
 
 
     [SerializeField] private float speed;
@@ -18,34 +19,78 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private CircleCollider2D boxCollider;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private HealtControl healtControl;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
         isImmune = 0;
         cantMove = false;
+        wallJumpCooldown = 0;
+        horizontal = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if(wallJumpCooldown<=80)
+        {
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                horizontal = 1;
+                wallJumpCooldown = 0;
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                horizontal = -1;
+                wallJumpCooldown = 0;
+            }
+            else
+            {
+                horizontal = 0;
+            }
+        }
         if(Physics2D.IsTouchingLayers(boxCollider, groundLayer))
         {
             cantMove = false;
+            wallJumpCooldown = 0;
             if (Input.GetKeyDown("c"))
             {
-                playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower * Mathf.Sign(playerRigidBody.gravityScale));
+                playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);
             }
         }
+        if(wallJumpCooldown<80&&Physics2D.IsTouchingLayers(boxCollider, wallLayer))
+        {
+            wallJumpCooldown = 100;
+            playerRigidBody.velocity = new Vector2(-Mathf.Sign(playerRigidBody.velocity.x)*speed, jumpPower*0.35f);
+        }
+        
         Flip();
     }
 
     private void FixedUpdate()
     {
+        if(isImmune>0)
+        {
+            if(Mathf.Floor(Time.time*10)%3==1)
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+            }
+            else
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+            }
+        }
+        else
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+            cantMove = false;
+        }
         isImmune = isImmune <= 0 ? 0 : isImmune - 1;
-        if(!cantMove)
+        wallJumpCooldown = wallJumpCooldown <= 0 ? 0 : wallJumpCooldown - 1;
+        if ((!Physics2D.IsTouchingLayers(boxCollider, wallLayer)) &&!cantMove && wallJumpCooldown==0)
         {
             playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
         }
@@ -80,6 +125,7 @@ public class TirtilMotion : MonoBehaviour
         healtControl.IncreaseHealth(-amount);
         isImmune = maxImmunityTime;
         cantMove = true;
+        playerRigidBody.velocity = new Vector2(-horizontal * 4, 4);
     }
 
 }

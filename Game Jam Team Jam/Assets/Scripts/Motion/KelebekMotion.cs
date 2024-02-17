@@ -9,7 +9,7 @@ public class KelebekMotion : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private Rigidbody2D playerRigidBody;
-    [SerializeField] private CircleCollider2D boxCollider;
+    [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private Camera mainCamera;
     // Start is called before the first frame update
     void Start()
@@ -25,11 +25,23 @@ public class KelebekMotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            horizontal = 1;
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            horizontal = -1;
+        }
+        else
+        {
+            horizontal = 0;
+        }
         if (Input.GetKey("c"))
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);
         }
+        Flip();
     }
 
     private void Flip()
