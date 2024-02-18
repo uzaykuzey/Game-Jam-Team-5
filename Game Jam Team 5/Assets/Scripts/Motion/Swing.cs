@@ -7,7 +7,7 @@ public class Swing : MonoBehaviour
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Sprite[] sprites;
-
+    [SerializeField] AudioSource stabStab;
     int attacked;
     int attackCooldown;
     // Update is called once per frame
@@ -19,6 +19,7 @@ public class Swing : MonoBehaviour
             boxCollider.enabled = true;
             spriteRenderer.enabled = true;
             attackCooldown = 30;
+            stabStab.Play();
         }
         if(attacked==0)
         {

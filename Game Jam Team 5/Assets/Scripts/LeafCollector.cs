@@ -7,6 +7,7 @@ public class LeafCollector : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] Sprite[] numbers;
     [SerializeField] SpriteRenderer spriteRenderer;
+
     public int collectedLeafAmount;
     void Start()
     {
