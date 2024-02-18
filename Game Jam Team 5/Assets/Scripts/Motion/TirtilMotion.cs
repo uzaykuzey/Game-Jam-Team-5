@@ -104,8 +104,6 @@ public class TirtilMotion : MonoBehaviour
             }
         }
         Flip();
-        rightColliderTransform.position = new Vector3(playerRigidBody.position.x + 1.196f, playerRigidBody.position.y - 0.93f, -0.2f);
-        leftColliderTransform.position = new Vector3(playerRigidBody.position.x - 1.837f, playerRigidBody.position.y - 0.93f, -0.2f);
     }
 
     private void FixedUpdate()
