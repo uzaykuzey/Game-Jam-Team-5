@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/tirtil1.unity
     guid: fce6b855de59d954f841a7395bbbb5b6
+  - enabled: 1
+    path: Assets/Scenes/KozaCutscene.unity
+    guid: 6e0dc7d8e9658ee45a088ac66f2d9744
   m_configObjects: {}
