@@ -10,6 +10,8 @@ public class BeeMovement : MonoBehaviour
     [SerializeField] private CircleCollider2D circleCollider;
     [SerializeField] private Rigidbody2D rigidbody2Dbee;
     [SerializeField] private float speed;
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public int range;
 
     private Vector3 inital;
@@ -27,7 +29,19 @@ public class BeeMovement : MonoBehaviour
         facingUp = true;
         countdown = 0;
         inital = transform.position;
-        health = 10;
+        //health = 10;
+    }
+
+    private void Update()
+    {
+        if (Mathf.Floor(Time.time * 2) % 2 == 0)
+        {
+            spriteRenderer.sprite = sprites[0];
+        }
+        else
+        {
+            spriteRenderer.sprite = sprites[1];
+        }
     }
 
     public void TakeDamage (int damage)

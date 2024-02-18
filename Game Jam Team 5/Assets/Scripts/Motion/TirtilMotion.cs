@@ -22,10 +22,6 @@ public class TirtilMotion : MonoBehaviour
     [SerializeField] private BoxCollider2D horizontalPlayerBoxCollider;
     [SerializeField] private BoxCollider2D idlePlayerBoxCollider;
     [SerializeField] private BoxCollider2D groundBoxCollider;
-    [SerializeField] private BoxCollider2D rightCollider;
-    [SerializeField] private Transform rightColliderTransform;
-    [SerializeField] private BoxCollider2D leftCollider;
-    [SerializeField] private Transform leftColliderTransform;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private LayerMask wallLayer;

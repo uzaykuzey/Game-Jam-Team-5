@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HunterBird : MonoBehaviour
 {
@@ -68,7 +69,8 @@ public class HunterBird : MonoBehaviour
         if (butterFly != null)
         {
             Debug.Log("worked bird");
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            SceneManager.LoadScene("Kelebek");
         }
         
     }

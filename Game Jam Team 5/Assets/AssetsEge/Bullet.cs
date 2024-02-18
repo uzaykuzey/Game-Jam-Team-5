@@ -19,7 +19,8 @@ public class Bullet : MonoBehaviour
         if(bee != null) 
         {
             Debug.Log("worked bullet");
-            bee.TakeDamage(10);
+            bee.TakeDamage(1);
         }
+        Destroy(gameObject);
     }
 }

@@ -24,6 +24,7 @@ public class KelebekMotion : MonoBehaviour
     public void gotShotByHoney()
     {
         hasHoney=true;
+        honeyCounter = 75;
     }
 
     private void FixedUpdate()
@@ -32,8 +33,8 @@ public class KelebekMotion : MonoBehaviour
 
         if(hasHoney)
         {
-            honeyCounter = 75;
-            speed /= 2;
+            
+            speed = 2;
 
             if (honeyCounter > 0)
             {
@@ -41,7 +42,7 @@ public class KelebekMotion : MonoBehaviour
             }
             if (honeyCounter <= 0)
             {
-                speed *= 2;
+                speed = 4;
                 honeyCounter = 0;
                 hasHoney = false;
             }
