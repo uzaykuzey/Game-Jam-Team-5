@@ -13,14 +13,37 @@ public class KelebekMotion : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform bulletStart;
     // Start is called before the first frame update
+    private bool hasHoney;
+    private int honeyCounter;
     void Start()
     {
-        
+        hasHoney = false;
+    }
+    public void gotShotByHoney()
+    {
+        hasHoney=true;
     }
 
     private void FixedUpdate()
     {
         playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
+
+        if(hasHoney)
+        {
+            honeyCounter = 75;
+            speed /= 2;
+
+            if (honeyCounter > 0)
+            {
+                honeyCounter--;
+            }
+            if (honeyCounter <= 0)
+            {
+                speed *= 2;
+                honeyCounter = 0;
+                hasHoney = false;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -36,26 +59,7 @@ public class KelebekMotion : MonoBehaviour
 
     private void Flip()
     {
-        /*
-        if (playerRigidBody.gravityScale < 0 && playerRigidBody.rotation < 1)
-        {
-            playerRigidBody.rotation = 180;
-        }
-        else if (playerRigidBody.gravityScale > 0 && playerRigidBody.rotation > 170)
-        {
-            playerRigidBody.rotation = 0;
-        }
 
-        if ((isFacingRight && horizontal < 0f && playerRigidBody.gravityScale > 0) 
-            || (!isFacingRight && horizontal > 0f && playerRigidBody.gravityScale > 0) 
-            || (isFacingRight && horizontal > 0f && playerRigidBody.gravityScale < 0) 
-            || (!isFacingRight && horizontal < 0f && playerRigidBody.gravityScale < 0))
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }*/
         if(Input.GetKey(KeyCode.LeftArrow) && isFacingRight)
         {
             transform.Rotate(0f, 180f, 0f);

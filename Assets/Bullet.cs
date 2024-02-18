@@ -11,9 +11,15 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, life);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        //Destroy(collision.gameObject);
-        Destroy(gameObject);
+        BeeMovement bee = collision.GetComponent<BeeMovement>();
+        if(bee != null) 
+        {
+            Debug.Log("worked bullet");
+            bee.TakeDamage(10);
+        }
     }
 }

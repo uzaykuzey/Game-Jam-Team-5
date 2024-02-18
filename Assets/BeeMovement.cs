@@ -13,6 +13,9 @@ public class BeeMovement : MonoBehaviour
     public int range;
 
     private Vector3 inital;
+
+    [SerializeField] private int health;
+
     
 
     int countdown;
@@ -24,6 +27,22 @@ public class BeeMovement : MonoBehaviour
         facingUp = true;
         countdown = 0;
         inital = transform.position;
+        health = 10;
+    }
+
+    public void TakeDamage (int damage)
+    {
+        health -= damage;
+
+        if(health <= 0) 
+        {
+            Die();
+        }
+    }
+    void Die ()
+    {
+        //Instantiate(deatheEffect);
+        Destroy(gameObject);
     }
 
     void FixedUpdate()
