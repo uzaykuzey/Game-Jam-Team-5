@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealtControl : MonoBehaviour
 {
@@ -17,10 +18,13 @@ public class HealtControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(health==0)
+        {
+            SceneManager.LoadScene("tirtil1");
+        }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         for(int i=0;i<spriteRenderersOfHealths.Length;i++)
         {
