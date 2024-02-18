@@ -11,9 +11,19 @@ public class HoneyBall : MonoBehaviour
         Destroy(gameObject, life);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
         //Destroy(collision.gameObject);
+
+        KelebekMotion butterFly = collision.GetComponent<KelebekMotion>();
+        
+        if (butterFly != null)
+        {
+            Debug.Log("worked honeyball");
+            butterFly.gotShotByHoney();
+        }
         Destroy(gameObject);
     }
 }
