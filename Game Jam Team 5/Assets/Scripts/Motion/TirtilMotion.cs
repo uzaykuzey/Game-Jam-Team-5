@@ -147,6 +147,10 @@ public class TirtilMotion : MonoBehaviour
         {
             enoughEsc = 0;
         }
+        if(playerRigidBody.position.x>10.8)
+        {
+            SceneManager.LoadScene("KozaCutscene");
+        }
     }
 
     private void Flip()

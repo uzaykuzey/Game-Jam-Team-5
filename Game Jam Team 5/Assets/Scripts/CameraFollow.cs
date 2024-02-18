@@ -19,7 +19,7 @@ public class CameraFollow : MonoBehaviour
         healthBars[1].position = cameraTransform.position + offset2;
         healthBars[2].position = cameraTransform.position + offset3;
 
-        if (player.position.y > 0)
+        if (player.position.y > 1.2f)
         {
             transform.position = new Vector3(transform.position.x, player.position.y , transform.position.z);
         }
