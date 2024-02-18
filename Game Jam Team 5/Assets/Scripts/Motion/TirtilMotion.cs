@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TirtilMotion : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class TirtilMotion : MonoBehaviour
     private int wallJumpCooldown;
     private int attackCooldown;
     private float prevHorizontal;
+    private int enoughEsc;
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
@@ -40,6 +42,7 @@ public class TirtilMotion : MonoBehaviour
         wallJumpCooldown = 0;
         horizontal = 0;
         Screen.SetResolution(1920, 1080, true);
+        enoughEsc = 0;
     }
 
     // Update is called once per frame
@@ -131,6 +134,18 @@ public class TirtilMotion : MonoBehaviour
 
             playerRigidBody.velocity = new Vector2(horizontal * speed, playerRigidBody.velocity.y);
             
+        }
+        if(Input.GetKey(KeyCode.Q))
+        {
+            enoughEsc++;
+            if(enoughEsc>150)
+            {
+                SceneManager.LoadScene("StartMenu");
+            }
+        }
+        else
+        {
+            enoughEsc = 0;
         }
     }
 

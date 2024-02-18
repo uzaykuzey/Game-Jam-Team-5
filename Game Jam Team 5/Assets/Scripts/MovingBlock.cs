@@ -22,7 +22,7 @@ public class MovingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(countdown==0&&xaxis)
+        if(countdown<=0&&xaxis)
         {
             if(transform.position.x >= firstPosition.x + range)
             {
@@ -35,7 +35,7 @@ public class MovingBlock : MonoBehaviour
                 lookingPositive = 1;
             }
         }
-        else
+        else if (countdown <= 0)
         {
             if (transform.position.y >= firstPosition.y + range)
             {

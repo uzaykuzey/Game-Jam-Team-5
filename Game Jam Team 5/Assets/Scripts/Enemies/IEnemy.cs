@@ -11,6 +11,7 @@ public class IEnemy : MonoBehaviour
     [SerializeField] protected TirtilMotion tirtil;
     [SerializeField] protected Rigidbody2D enemyRigidBody;
     [SerializeField] protected LayerMask weaponLayer;
+    [SerializeField] protected ExplosionSummoner explosion;
     int immunityCountdown;
 
     void Update()
@@ -37,6 +38,7 @@ public class IEnemy : MonoBehaviour
 
     public void Die()
     {
+        //explosion.summonExplosion(transform.position);
         transform.position = new Vector2(1000,0);
     }
 }
