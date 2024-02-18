@@ -26,6 +26,7 @@ public class StartMenuScripts : MonoBehaviour
     {
         mainMenu.SetActive(false);
         Time.timeScale = 1.0f;
+        SceneManager.LoadScene("tirtil1");
     }
 
     public void ConInfDisp()
