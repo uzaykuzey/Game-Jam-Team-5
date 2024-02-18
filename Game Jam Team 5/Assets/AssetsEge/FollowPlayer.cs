@@ -20,6 +20,10 @@ public class FollowPlayer : MonoBehaviour
         {
             targetPosition.x = 0;
         }
+        if(targetPosition.x>=111)
+        {
+            targetPosition.x = 111;
+        }
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
 }

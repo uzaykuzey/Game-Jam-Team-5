@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KelebekMotion : MonoBehaviour
 {
@@ -14,12 +15,15 @@ public class KelebekMotion : MonoBehaviour
     [SerializeField] private Transform bulletStart;
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private LayerMask spikes;
+    private int enoughEsc;
     // Start is called before the first frame update
     private bool hasHoney;
     private int honeyCounter;
     void Start()
     {
         hasHoney = false;
+        enoughEsc = 0;
     }
     public void gotShotByHoney()
     {
@@ -47,6 +51,18 @@ public class KelebekMotion : MonoBehaviour
                 hasHoney = false;
             }
         }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            enoughEsc++;
+            if (enoughEsc > 150)
+            {
+                SceneManager.LoadScene("StartMenu");
+            }
+        }
+        else
+        {
+            enoughEsc = 0;
+        }
     }
 
     // Update is called once per frame
@@ -65,6 +81,10 @@ public class KelebekMotion : MonoBehaviour
         else
         {
             spriteRenderer.sprite = sprites[1];
+        }
+        if(Physics2D.IsTouchingLayers(boxCollider, spikes))
+        {
+            SceneManager.LoadScene("Kelebek");
         }
     }
 

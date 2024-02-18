@@ -8,9 +8,7 @@ public class GunMechanic : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
     public float bulletSpeed = 10;
-
-
- 
+    [SerializeField] private AudioSource bulletSound;
 
     // Update is called once per frame
     void Update()
@@ -21,9 +19,9 @@ public class GunMechanic : MonoBehaviour
            
             var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             bullet.GetComponent<Rigidbody2D>().velocity = bulletSpawnPoint.right   * bulletSpeed;
-
-        
+            bulletSound.Play();
         }
 
     }
+
 }

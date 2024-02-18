@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BeeMovement : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class BeeMovement : MonoBehaviour
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private SpriteRenderer spriteRenderer;
     public int range;
+    public bool isQueen;
 
     private Vector3 inital;
 
@@ -34,11 +36,11 @@ public class BeeMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Mathf.Floor(Time.time * 2) % 2 == 0)
+        if (!isQueen&&Mathf.Floor(Time.time * 2) % 2 == 0)
         {
             spriteRenderer.sprite = sprites[0];
         }
-        else
+        else if(!isQueen)
         {
             spriteRenderer.sprite = sprites[1];
         }
@@ -56,6 +58,10 @@ public class BeeMovement : MonoBehaviour
     void Die ()
     {
         //Instantiate(deatheEffect);
+        if(isQueen)
+        {
+            SceneManager.LoadScene("Victory!!!");
+        }
         Destroy(gameObject);
     }
 

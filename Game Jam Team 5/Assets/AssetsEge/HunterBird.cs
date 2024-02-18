@@ -13,12 +13,17 @@ public class HunterBird : MonoBehaviour
     [SerializeField] private Transform birdStart;
     [SerializeField] private Transform birdEnd;
     [SerializeField] private Rigidbody2D playerRigidBody;
+    [SerializeField] private AudioSource eagle;
+    [SerializeField ] private Rigidbody2D butterfly; 
+    bool canPlaySound;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         counter = maxCnt;
+        canPlaySound = false;
     }
 
     // Update is called once per frame
@@ -38,15 +43,21 @@ public class HunterBird : MonoBehaviour
         }
         if(counter <= 0)
         {
-
+            canPlaySound = true;
             BirdStrike();
             counter = maxCnt;
 
         }
-
+        print(Vector3.Distance(butterfly.position, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)));
+        if (canPlaySound && Vector3.Distance(butterfly.position, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)) <= 50)
+        {
+            eagle.Play();
+            canPlaySound = false;
+        }
     }
     void BirdStrike()
     {
+        canPlaySound = true;
         //Move from inital Point to other point
         transform.position = birdStart.position;
         float temp =  birdStart.position.x - birdEnd.position.x;
@@ -58,7 +69,6 @@ public class HunterBird : MonoBehaviour
         {
             playerRigidBody.velocity = new Vector2(speed, playerRigidBody.velocity.y);
         }
-        
 
     }
 

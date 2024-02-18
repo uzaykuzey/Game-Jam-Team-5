@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Kelebek.unity
     guid: a746dda9e703cb54d9f46572159f697e
+  - enabled: 1
+    path: Assets/Scenes/Victory!!!.unity
+    guid: 4a418be827af72d44a5010eb76e2e087
   m_configObjects: {}
