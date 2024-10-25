@@ -12932,6 +12932,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5988374395735183314, guid: 9698e6954630921489d4c18f93b5a9b5, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7437997679423147054, guid: 9698e6954630921489d4c18f93b5a9b5, type: 3}
       propertyPath: bulletSound
       value: 

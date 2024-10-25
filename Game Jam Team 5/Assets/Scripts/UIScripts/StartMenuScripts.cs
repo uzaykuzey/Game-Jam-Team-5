@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartMenuScripts : MonoBehaviour
 {
+    #if UNITY_WEBGL
+        [DllImport("__Internal")]
+        private static extern void OpenURLInSameTab(string url);
+    #endif
+
     public GameObject mainMenu;
     public GameObject ConInfMenu;
     public GameObject CreditsMenu;
@@ -43,6 +49,15 @@ public class StartMenuScripts : MonoBehaviour
 
     public void Exit()
     {
-        Application.Quit();
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            #if UNITY_WEBGL
+                OpenURLInSameTab("https://uzay-kuzey.itch.io/");
+            #endif
+        }
+        else
+        {
+            Application.Quit();
+        }
     }
 }
