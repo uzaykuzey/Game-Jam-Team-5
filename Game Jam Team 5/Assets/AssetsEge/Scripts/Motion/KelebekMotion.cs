@@ -54,7 +54,7 @@ public class KelebekMotion : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         {
             enoughEsc++;
-            if (enoughEsc > 150)
+            if (enoughEsc > 20)
             {
                 SceneManager.LoadScene("StartMenu");
             }

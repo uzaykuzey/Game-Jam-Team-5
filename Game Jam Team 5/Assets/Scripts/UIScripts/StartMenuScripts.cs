@@ -6,14 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuScripts : MonoBehaviour
 {
-    #if UNITY_WEBGL
-        [DllImport("__Internal")]
-        private static extern void OpenURLInSameTab(string url);
-    #endif
-
     public GameObject mainMenu;
     public GameObject ConInfMenu;
     public GameObject CreditsMenu;
+
+    public GameObject quitButton;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +22,10 @@ public class StartMenuScripts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(quitButton!=null && Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            quitButton.SetActive(false);
+        }
     }
 
     public void StartGame()
@@ -49,15 +49,6 @@ public class StartMenuScripts : MonoBehaviour
 
     public void Exit()
     {
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            #if UNITY_WEBGL
-                OpenURLInSameTab("https://uzay-kuzey.itch.io/");
-            #endif
-        }
-        else
-        {
-            Application.Quit();
-        }
+        Application.Quit();
     }
 }

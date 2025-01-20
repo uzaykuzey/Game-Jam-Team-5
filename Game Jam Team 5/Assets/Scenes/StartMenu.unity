@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Quit: Q'
+  m_text: 'Quit: Hold Q'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1831,6 +1831,7 @@ MonoBehaviour:
   mainMenu: {fileID: 676018412}
   ConInfMenu: {fileID: 761444337}
   CreditsMenu: {fileID: 92364574}
+  quitButton: {fileID: 0}
 --- !u!114 &634341648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2171,6 +2172,7 @@ MonoBehaviour:
   mainMenu: {fileID: 676018412}
   ConInfMenu: {fileID: 761444337}
   CreditsMenu: {fileID: 92364574}
+  quitButton: {fileID: 824647322}
 --- !u!114 &824647325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2321,6 +2323,7 @@ MonoBehaviour:
   mainMenu: {fileID: 676018412}
   ConInfMenu: {fileID: 761444337}
   CreditsMenu: {fileID: 92364574}
+  quitButton: {fileID: 0}
 --- !u!114 &854781992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3322,6 +3325,7 @@ MonoBehaviour:
   mainMenu: {fileID: 676018412}
   ConInfMenu: {fileID: 761444337}
   CreditsMenu: {fileID: 92364574}
+  quitButton: {fileID: 0}
 --- !u!114 &1643908342
 MonoBehaviour:
   m_ObjectHideFlags: 0
